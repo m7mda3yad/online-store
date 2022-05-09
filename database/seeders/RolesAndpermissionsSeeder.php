@@ -8,28 +8,24 @@ use Spatie\Permission\Models\Permission ;
 
 class RolesAndpermissionsSeeder extends Seeder
 {
-
     public function run()
     {
         $permissions = [
-            'view all user' ,  'add user' , 'update user' ,   'delete user' , 'suspend user',
-            'view all university' ,  'add university' , 'update university' ,   'delete university' , 'suspend university',
-            'view all faculty' ,  'add faculty' , 'update faculty' ,   'delete faculty' , 'suspend faculty',
-            'view all course' ,  'add course' , 'update course' ,   'delete course' , 'suspend course',
-            'view all subject' ,  'add subject' , 'update subject' ,   'delete subject' , 'suspend subject',
-            'view all instructor' ,  'add instructor' , 'update instructor' ,   'delete instructor' , 'suspend instructor',
-            'view all student' ,  'add student' , 'update student' ,   'delete student' , 'suspend student',
+            'view all users','view all categories','view all sub_categories','view site data'
         ];
 
+        //create all permissions
         foreach($permissions as $permission)
-
+        {
             Permission::firstOrCreate(['name'=>$permission]);
-
-        Permission::whereNotIn('name',$permissions)->delete();
-
-        $role = Role::firstOrCreate(['name' => 'admin']);
-
-        $role->givePermissionTo(Permission::all());
+        }
+                //delete old anthor permission if not in array
+            Permission::whereNotIn('name',$permissions)->delete();
+            $role = Role::firstOrCreate(['name' => 'admin']);
+                // admin role and permission
+            $role = Role::firstOrCreate(['name' => 'admin']);
+            Permission::firstOrCreate(['name'=>'admin']);
+            $role->givePermissionTo('admin');
 
     }
 }

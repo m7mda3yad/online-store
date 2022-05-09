@@ -131,6 +131,8 @@ return [
         Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
     ),
 
+    // 'cookie' => 'laravel_session',
+
     /*
     |--------------------------------------------------------------------------
     | Session Cookie Path
@@ -156,6 +158,7 @@ return [
     */
 
     'domain' => env('SESSION_DOMAIN', null),
+    // 'domain' => '127.0.0.1:8000',
 
     /*
     |--------------------------------------------------------------------------

@@ -14,11 +14,27 @@ return [
     |
     */
 
+    'google' => [
+        'client_id' => '679452957810-v53f8r3d4lh4ge4sjcfkdk8dp9hjfe78.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://127.0.0.1:8000/auth/google/callback',
+    ],
+    'facebook' => [
+        'client_id' => '5000104723365893',
+        'client_secret' => 'd80df2a86a607725c21518e2dcb00ada',
+        'redirect' => 'http://127.0.0.1:8000/auth/facebook/callback',
+    ],
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+    ],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
+    'mandrill' => [
+        'secret' => null,
+            ],
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),

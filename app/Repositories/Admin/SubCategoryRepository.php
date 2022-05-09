@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Repositories\Admin;
+
+use Prettus\Repository\Contracts\RepositoryInterface;
+
+/**
+ * Interface SubCategoryRepository.
+ *
+ * @package namespace App\Repositories\Admin;
+ */
+interface SubCategoryRepository extends RepositoryInterface
+{
+    //
+}

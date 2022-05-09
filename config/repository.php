@@ -237,7 +237,7 @@ return [
             'interfaces'   => 'Repositories/Admin',
             'transformers' => 'Transformers/Admin',
             'presenters'   => 'Presenters/Admin',
-            'validators'   => 'Validators/Admin',
+            // 'validators'   => 'Validators/Admin',
             'controllers'  => 'Http/Controllers/Admin',
             'provider'     => 'RepositoryServiceProvider/Admin',
             'criteria'     => 'Criteria/Admin'
