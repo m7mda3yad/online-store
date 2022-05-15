@@ -12,7 +12,7 @@
         </div>
     <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ trans('cruds.home') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ trans('cruds.home') }}</a></li>
             <li class="breadcrumb-item active">{{ trans('cruds.products') }}</li>
           </ol>
         </div>

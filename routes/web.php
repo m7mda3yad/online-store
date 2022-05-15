@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 });
     Route::middleware(['auth'])->group(function () {
-        Route::get('/', 'HomeController@index');
+        Route::get('/admin', 'HomeController@index')->name('admin');
     });
 
 Route::get('sql', function () {

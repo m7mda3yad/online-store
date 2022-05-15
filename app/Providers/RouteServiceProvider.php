@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
 
-    public const HOME = '/home';
+    public const HOME = '/admin';
     protected $namespace='App\Http\Controllers';
 
     public function boot()
