@@ -5,7 +5,7 @@ use App\Entities\Admin\Product;
 use App\Entities\Admin\Category;
 use App\Entities\Admin\SubCategory;
 
-class ShowProducts extends Component{
+class ShowProducts2 extends Component{
 
     public $count;
     public  $products;
