@@ -16,7 +16,7 @@ class ProductRequest extends FormRequest
         return [
 
             'name'=>'required|min:3|max:190',
-            'description'=>'required|min:3|max:190',
+            'description'=>'required|min:3|max:10000',
             'price'=>'required|digits_between:1,1000000',
             'photo'=>'nullable|image',
             'real_price'=>'required|digits_between:1,1000000',

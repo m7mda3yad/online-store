@@ -80,8 +80,8 @@ class ShowProducts extends Component{
             session()->put('cart', $cart);
         }
         $this->count=count(session()->get('cart', []));
-
     }
+
 
     public function chooseProduct($id)
     {

@@ -10,13 +10,19 @@
   <link rel="stylesheet" href="{{asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
 </head>
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="#"><b>Admin</b>LTE</a>
+<body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="row align-items-center py-3 px-xl-5" >
+        <div class="col-lg-3 d-none d-lg-block">
+            <a href="" class="text-decoration-none">
+                <h1 class="m-0 display-5 font-weight-semi-bold" style="color: black">
+                    <span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+            </a>
         </div>
+        </div>
+        <br>
 
-        <div class="card">
+        <div class="row">
             @yield('content')
         </div>
 

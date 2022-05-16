@@ -1,123 +1,75 @@
-<div class="container px-4 px-lg-5 mt-5" >
-    <div class="container">
-        @php $total = 0 @endphp
-        <div class="container">
-        <form action="{{ route('checkout') }}" class="text-right">
-            <div class="row">
-                <div class="col-8">
-                    <br>
-                    @if(session('cart'))
-                        @foreach(session('cart') as $id => $details)
-                            @php $total += $details['product']['real_price'] * $details['quantity'] @endphp
-                            <div class="row"  data-id="{{ $id }}" style="background-color:white">
-                                <div class="col-8">
-                                    <img src="{{ $details['photo']??'' }}" width="100" height="100" class="img-responsive"/>
-                                    <br>
-                                    <br>
-                                    <h1>{{ $details['product']['name'] }}</h1>
-                                </div>
-                                <div class="col-4" >
-                                    <h5 data-th="Price">${{ $details['product']['real_price'] }}</h5>
-                                    <h5 data-th="Quantity">
-                                        <input class="col-3 btn-sm" type="button" value="+" wire:click="plus({{$id}})">
-                                        <input class="col-3 btn-sm" type="button" value="{{ $details['quantity'] }}" />
-                                        <input class="col-3 btn-sm" type="button" value="-" wire:click="minus({{$id}})">
-                                    </h5>
-                                    <h5 data-th="Subtotal" class="text-center">${{ $details['product']['real_price'] * $details['quantity'] }}</h5>
-                                    <h5 class="actions" data-th="">
-                                        @isset($details['key'])
-                                            @foreach(getFIlterByKey($details['key']) as $filter)
-                                                <p >{{$filter->name??''}} </p>
-                                            @endforeach
-                                        @endisset
-                                        <br>
-                                <button wire:click="remove({{$id}})" class="btn btn-danger btn-sm remove-from-cart"><i class="fa fa-trash-o"></i></button>
+<div class="container-fluid pt-5">
+    @php $total = 0 @endphp
+    <form action="{{ route('checkout') }}">
+    <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                @if(session('cart'))
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                    @foreach(session('cart') as $id => $details)
+                    @php $total += $details['product']['real_price'] * $details['quantity'] @endphp
+                    <tr data-id="{{ $id }}">
+                            <td class="align-middle"><img src="{{$details['photo']??asset('assets/img/product-1.jpg')}}" alt="" style="width: 50px;">{{ $details['product']['name'] }}
+                                <br>
+                                @isset($details['key'])
+                                @foreach(getFIlterByKey($details['key']) as $filter)
+                                    {{$filter->name??''}} \
+                                @endforeach
+                                @endisset
+                            </td>
+                            <td class="align-middle">$ {{ $details['product']['real_price'] }}</td>
+                            <td class="align-middle">
+                                <div class="input-group quantity mx-auto" style="width: 100px;">
+                                    <div class="input-group-btn">
 
-                                    </h5>
+                                        <button type="button" class="btn btn-sm btn-primary btn-minus" wire:click="minus({{$id}})" ><i class="fa fa-minus"></i></button>
+
+                                    </div>
+                                    <input  type="text" class="form-control form-control-sm bg-secondary text-center" value="{{ $details['quantity'] }}">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary btn-plus" wire:click="plus({{$id}})" ><i class="fa fa-plus"></i></button>
+                                    </div>
                                 </div>
-                            </div>
-                            <br>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="col-4">
-                    <div class="">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <h3><strong>Total ${{ $total }}</strong></h3>
-                            </li>
-                            <li class="list-group-item">
-                                    <button type="submit" class="btn btn-success">Checkout</button>
-                                </li>
-                            </ul>
+                            </td>
+                            <td class="align-middle" data-th="Subtotal">${{ $details['product']['real_price'] * $details['quantity'] }}</td>
+                            <td class="align-middle">
+                                <button type="button" wire:click="remove({{$id}})" class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                @endif
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                    </div>
+                    <div class="card-body">
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold">$  ${{ $total }}</h5>
+                        </div>
+                        @if(session('cart'))
+                        @if(count(session('cart'))>0)
+                         <button type="submit" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                        @endif
+                        @endif
                     </div>
                 </div>
             </div>
-        </form>
         </div>
-    </div>
-</div>
-    <table id="cart" class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <th style="width:50%">Product</th>
-                <th style="width:10%">Price</th>
-                <th style="width:8%">Quantity</th>
-                <th style="width:22%" class="text-center">Subtotal</th>
-                <th style="width:10%"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @php $total = 0 @endphp
-            @if(session('cart'))
-                @foreach(session('cart') as $id => $details)
-                    @php $total += $details['product']['real_price'] * $details['quantity'] @endphp
-                    <tr data-id="{{ $id }}">
-                        <td data-th="Product">
-
-                            <div class="row">
-                                <div class="btn-sm-3 hidden-xs"><img src="{{ $details['photo']??'' }}" width="100" height="100" class="img-responsive"/></div>
-                                <div class="btn-sm-9">
-                                    <h4 class="nomargin">
-                                    {{ $details['product']['name'] }}
-                                    </h4>
-                                </div>
-                            </div>
-                        </td>
-                        <td data-th="Price">${{ $details['product']['real_price'] }}</td>
-                        <td data-th="Quantity">
-                            {{--  <select name="name" id="">
-                                @for ($i = 0; $i < $details['amount']; $i++)
-                                     <option>{{  $i+1 }}</option>
-                                @endfor
-                             </select>  --}}
-                            <input class="col-3" type="button" value="+" wire:click="plus({{$id}})">
-                            <input class="col-3" type="button" value="{{ $details['quantity'] }}" />
-                            <input class="col-3" type="button" value="-" wire:click="minus({{$id}})">
-                        </td>
-                        <td data-th="Subtotal" class="text-center">${{ $details['product']['real_price'] * $details['quantity'] }}</td>
-                        <td class="actions" data-th="">
-                    <button wire:click="remove({{$id}})" class="btn btn-danger btn-sm remove-from-cart"><i class="fa fa-trash-o"></i></button>
-                        </td>
-                    </tr>
-                @endforeach
-            @endif
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="text-right"><h3><strong>Total ${{ $total }}</strong></h3></td>
-            </tr>
-            <tr>
-
-                <td colspan="5" class="text-right">
-                    <a href="{{ url('/') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
-                        @if(session('cart'))
-                    <form action="{{ route('checkout') }}">
-                        <button type="submit" class="btn btn-success">Checkout</button>
-                    </form>
-                    @endif
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+    </form>
 </div>

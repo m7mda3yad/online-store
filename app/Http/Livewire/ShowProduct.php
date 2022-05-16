@@ -48,7 +48,6 @@ class ShowProduct extends Component{
     }
     public function remove($id)
     {
-
         $cart = session()->get('cart');
         if(isset($cart[$id])) {
             unset($cart[$id]);
