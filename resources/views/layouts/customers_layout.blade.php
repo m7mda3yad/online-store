@@ -135,8 +135,18 @@
                             <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="{{ route('customer.login.form') }}" class="nav-item nav-link">Login</a>
-                            <a href="{{ route('register') }}" class="nav-item nav-link">Register</a>
+                            @if(auth()->guard('customer')->check())
+                            <a href="{{ route('profile') }}" class="nav-item nav-link">{{ auth()->guard('customer')->user()->name }}</a>
+
+            <form method="POST" action="{{ route('customer.logout') }}"  accept-charset="UTF-8" id="form1">
+                {{ method_field('POST') }} {{ csrf_field() }}
+                <a  class="nav-item nav-link" href="#" onclick="document.getElementById('form1').submit();">logout!</a>
+            </form>
+
+                            @else
+                                <a href="{{ route('customer.login.form') }}" class="nav-item nav-link">Login</a>
+                                <a href="{{ route('register') }}" class="nav-item nav-link">Register</a>
+                            @endif
                         </div>
                     </div>
                 </nav>

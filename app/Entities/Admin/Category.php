@@ -9,7 +9,8 @@ class Category extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = ['name','active'];
+    protected $fillable = ['name','active','photo'];
+
 
 
     public function sub_categories()

@@ -9,7 +9,11 @@ use Prettus\Repository\Traits\TransformableTrait;
 class SubCategory extends Model implements Transformable
 {
     use TransformableTrait;
-    protected $fillable = ['name','category_id','active'];
+    protected $fillable = ['name','category_id','active','photo'];
+
+    public function getPhotoAttribute($photo){
+        return $photo? asset('images/sub_categories/'.$photo):null;
+    }
 
     public function category()
     {

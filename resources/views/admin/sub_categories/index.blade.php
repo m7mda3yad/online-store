@@ -153,6 +153,16 @@
                               </select>
                             @error('category_id')<div class="text-danger">{{ $message }}</div> @enderror
                         </div>
+                        <div class="card-body">
+                            <label for="photo">{{trans('cruds.photo')}}</label>
+                            <div class="input-group">
+                                <div class="">
+                                    <input type="file" class="form-control" name="photo">
+                                    <label class="" for="photo">{{trans('cruds.choose')}} {{trans('cruds.photo')}} </label>
+                                </div>
+                            </div>
+                            @error('photo')<div class="text-danger">{{ $message }}</div> @enderror
+                        </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('cruds.close') }}</button>
                             <button type="submit" class="btn btn-primary">{{ trans('cruds.add') }}</button>

@@ -23,7 +23,7 @@ class LoginController extends Controller
     public function FormCustomerLogin(Request $request)
     {
         if( auth()->guard('customer')->check() ){
-            return redirect()->route('orders');
+            return redirect()->route('order');
         }
         return view('auth.customer_login');
     }
@@ -45,6 +45,13 @@ class LoginController extends Controller
 
     public function __construct()
     {
+
+    }
+    public function logout()
+    {
+        \Auth::guard('customer')->logout();
+
+        return redirect('/');
 
     }
 }

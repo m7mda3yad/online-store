@@ -32,26 +32,9 @@ class CategoriesController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        try {
             $category = $this->repository->create($request->all());
-            $response = [
-                'message' => 'Category created.',
-                'data'    => $category->toArray(),
-            ];
-            if ($request->wantsJson()) {
-                return response()->json($response);
-            }
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            return redirect()->back()->with('message', 'Category created');
     }
 
     public function show($id)
@@ -73,36 +56,14 @@ class CategoriesController extends Controller
 
     public function update(CategoryRequest $request, $id)
     {
-        try {
             $category = $this->repository->update($request->all(), $id);
-            $response = [
-                'message' => 'Category updated.',
-                'data'    => $category->toArray(),
-            ];
-            if ($request->wantsJson()) {
-                return response()->json($response);
-            }
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            return redirect()->back()->with('message', 'Category updated.');
     }
 
     public function destroy($id)
     {
+
         $deleted = $this->repository->delete($id);
-        if (request()->wantsJson()) {
-            return response()->json([
-                'message' => 'Category deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
         return redirect()->back()->with('message', 'Category deleted.');
     }
 }

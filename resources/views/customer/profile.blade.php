@@ -1,4 +1,4 @@
-@extends('layouts.customer_layout')
+@extends('layouts.customers_layout')
 @section('content')
 <section class="">
     <div class="">
@@ -6,7 +6,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card card-info">
-                        <div class="card-header">
+                        <div class="card-header center">
                             <h3 class="card-title">{{trans('cruds.edit')}} {{trans('cruds.profile')}}</h3>
                         </div>
                         <form method="post" class="form-horizontal"    action="{{ route('profile.update') }}" enctype="multipart/form-data">

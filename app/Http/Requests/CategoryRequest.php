@@ -14,6 +14,7 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
+            'photo'=>'nullable|image',
             'name'=>'required|min:3|max:100'
         ];
     }

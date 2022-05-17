@@ -46,6 +46,16 @@
                                 @error('category_id')<div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label  class="col-sm-2 col-form-label">{{ trans('cruds.photo') }}</label>
+                            <div class="col-sm-4">
+                                <input type="file" class="form-control" name="photo">
+                            </div>
+                            @error('photo')<div class="text-danger">{{ $message }}</div> @enderror
+                        <div class="col-6">
+                            <img src="{{$subCategory->photo??''}}"  sizes="150" width="150" height="150">
+                        </div>
+                    </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">{{trans('cruds.submit')}}</button>
                         </div>

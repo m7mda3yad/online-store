@@ -5,7 +5,7 @@
       <div class="row mb-2">
         <div class="col-sm-4">
             @canany(['admin', 'add products'])
-               <a class="btn btn-block btn-primary" href="{{ route('products.add', ['id'=>$subCategory->id]) }}">Add</a>
+               {{--  <a class="btn btn-block btn-primary" href="{{ route('products.add', ['id'=>$subCategory->id]) }}">Add</a>  --}}
                 {{--  <button type="button" class="btn btn-block btn-primary " data-toggle="modal" data-target="#modal-lg">{{ trans('cruds.add') }} {{trans('cruds.products') }}</button>  --}}
             @endcan
         </div>
@@ -44,6 +44,10 @@
                             <tr>
                                 <th>{{ trans('cruds.created_at') }}</th>
                                 <td>{{$subCategory->created_at}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('cruds.photo') }}</th>
+                                <td> <img src="{{$subCategory->photo??''}}"  sizes="150" width="150" height="150"></td>
                             </tr>
                         </thead>
                     </table>

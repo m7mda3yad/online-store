@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        $SubCategory= SubCategory::has('products')->with('products')->get();
+        $SubCategory= SubCategory::has('products')->withCount('products')->get();
         return view('customer.index',compact('SubCategory'));
     }
     public function show_products($id)

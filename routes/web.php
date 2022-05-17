@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('checkout', 'HomeController@checkout')->name('checkout');
         Route::get('favorite/product/{id}', 'Admin\ProductsController@favorite')->name('product.favorite');
         Route::get('show/favorite', 'Admin\ProductsController@showFavorite')->name('show.favorite');
+        Route::post('customer/logout', 'Auth\LoginController@logout')->name('customer.logout');
 
 });
     Route::middleware(['auth'])->group(function () {

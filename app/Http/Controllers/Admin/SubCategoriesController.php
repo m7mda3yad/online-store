@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Entities\Admin\Filter;
+use App\Services\MediaService;
 use App\Entities\Admin\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoryRequest;
@@ -36,26 +37,13 @@ class SubCategoriesController extends Controller
 
     public function store(SubCategoryRequest $request)
     {
-        try {
             $subCategory = $this->repository->create($request->all());
-            $response = [
-                'message' => 'SubCategory created.',
-                'data'    => $subCategory->toArray(),
-            ];
-            if ($request->wantsJson()) {
-                return response()->json($response);
+            if($request->hasFile('photo')){
+                $secvice=new MediaService();
+                $subCategory->photo=$secvice->fileUpload('sub_categories',$request->photo);
+                $subCategory->save();
             }
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            return redirect()->back()->with('message', 'SubCategory created');
     }
 
     public function show($id)
@@ -98,36 +86,23 @@ class SubCategoriesController extends Controller
 
     public function update(SubCategoryRequest $request, $id)
     {
-        try {
             $subCategory = $this->repository->update($request->all(), $id);
-            $response = [
-                'message' => 'SubCategory updated.',
-                'data'    => $subCategory->toArray(),
-            ];
-            if ($request->wantsJson()) {
-                return response()->json($response);
+            if($request->hasFile('photo')){
+                $secvice=new MediaService();
+                $subCategory->photo!=null?$secvice->delete_image(public_path('images/sub_categories/'.$subCategory->getRawOriginal('photo'))):null;
+                $subCategory->photo=$secvice->fileUpload('sub_categories',$request->photo);
+                $subCategory->save();
             }
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            return redirect()->back()->with('message', 'SubCategory updated');
     }
 
     public function destroy($id)
     {
+
         $deleted = $this->repository->delete($id);
-        if (request()->wantsJson()) {
-            return response()->json([
-                'message' => 'SubCategory deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
+        $category = $this->repository->findOrFail($id);
+        $category->photo!=null?$secvice->delete_image(public_path('images/sub_categories/'.$category->getRawOriginal('photo'))):null;
+
         return redirect()->back()->with('message', 'SubCategory deleted.');
     }
 }

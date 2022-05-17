@@ -12,6 +12,7 @@ class RouteServiceProvider extends ServiceProvider
 {
 
     public const HOME = '/admin';
+    public const Customer = '/';
     protected $namespace='App\Http\Controllers';
 
     public function boot()

@@ -37,6 +37,7 @@
                                 <th>{{ trans('cruds.created_at') }}</th>
                                 <td>{{$category->created_at}}</td>
                             </tr>
+
                         </thead>
                     </table>
 

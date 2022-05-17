@@ -100,6 +100,7 @@
                 <tr>
                     <th>{{trans('cruds.id')}}</th>
                     <th>{{trans('cruds.name')}}</th>
+                    <th>{{trans('cruds.sub_categories')}}</th>
                     <th>{{trans('cruds.suspend')}}</th>
                     <th>{{ trans('cruds.action') }}</th>
                   </tr>
@@ -135,6 +136,7 @@
                                 @error('name')<div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
+
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('cruds.close') }}</button>
                             <button type="submit" class="btn btn-primary">{{ trans('cruds.add') }}</button>
