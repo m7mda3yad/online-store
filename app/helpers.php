@@ -1,5 +1,5 @@
 <?php
-
+ use App\Entities\Admin\Product;
 
 function getFIlterId($id)
 {
@@ -12,6 +12,16 @@ function getFIlterId($id)
     return [];
 
 
+}
+
+function Trandy()
+{
+    return Product::where('active',1)->paginate(8);
+}
+
+function JustArrived()
+{
+    return Product::where('active',1)->paginate(8);
 }
 
 function getFIlterByKey($key){

@@ -99,9 +99,9 @@ class SubCategoriesController extends Controller
     public function destroy($id)
     {
 
-        $deleted = $this->repository->delete($id);
         $category = $this->repository->findOrFail($id);
         $category->photo!=null?$secvice->delete_image(public_path('images/sub_categories/'.$category->getRawOriginal('photo'))):null;
+        $deleted = $this->repository->delete($id);
 
         return redirect()->back()->with('message', 'SubCategory deleted.');
     }
