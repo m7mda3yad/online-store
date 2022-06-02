@@ -42,7 +42,8 @@ Route::get('sql', function () {
     Route::get('cart', 'Admin\CartController@cart')->name('cart');
 Route::get('/show-products/{id}', 'Admin\CartController@show_products')->name('show-products.show');
 Route::get('/product/show/{id}', 'Admin\CartController@show_product')->name('product.show');
-Route::get('/', 'Admin\CartController@index')->name('index');
+Route::get('/home', 'Admin\CartController@index')->name('index');
+Route::get('/', 'HomeController@aboutProject')->name('about');
 Route::get('addToCart', 'Admin\CartController@addToCart')->name('addToCart');
 
 

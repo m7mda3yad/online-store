@@ -3,6 +3,8 @@
 @section('content')
 <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
+      <p>Email : admin@admin.com</p>
+      <p>Password : 12345678</p>
       <form action="{{route('login')}}" method="post">
         @csrf
         <div class="input-group mb-3">

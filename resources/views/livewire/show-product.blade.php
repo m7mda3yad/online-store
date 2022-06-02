@@ -37,7 +37,7 @@
                     </div>
                     <small class="pt-1">(50 Reviews)</small>
                 </div>
-                <h3 class="font-weight-semi-bold mb-4">$ {{ $product->real_price }}</h3>
+                <h3 class="font-weight-semi-bold mb-4">$ {{ $price??$product->real_price  }}</h3>
                 <p class="mb-4">{{ $product->description }}</p>
                 <form method="get" action="{{route('addToCart')}}">
                     <input type="hidden" name="product_id" value="{{$product->id}}">

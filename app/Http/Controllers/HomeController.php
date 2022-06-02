@@ -137,6 +137,10 @@ class HomeController extends Controller{
                 return view('customer.contact');
             }
 
+            public function aboutProject(){
+                return view('customer.aboutProject');
+            }
+
             public function about(){
                 return view('customer.about');
             }
