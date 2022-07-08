@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 use Livewire\Component;
+use Illuminate\Http\Request;
 use App\Entities\Admin\Product;
 use App\Entities\Admin\SubFilter;
 
@@ -12,9 +13,23 @@ class ShowProduct extends Component{
     public $count;
     public $price;
     public $inputs = [];
+    public $subids = [];
     public $filters_id = [];
     public $selectedFilter;
 
+
+    public function submit($formData)
+    {
+        $arr=[];
+        $count=0;
+        dd($formData);
+        while(isset($formData["subFilter[$count]"]))
+        {
+            $arr[$count]=$formData["subFilter[$count]"];
+            $count++;
+        }
+        $this->addToCart($formData['product_id'],$arr);
+    }
     public function subFilter($id)
     {
         $this->selectedFilter = SubFilter::findOrFail($id)->filter_id;
@@ -61,8 +76,10 @@ class ShowProduct extends Component{
     }
     public function render()
     {
+
         $this->ids = $this->product->sub_filters->pluck('filter_id')->unique()->toArray();
         foreach($this->ids as $key=>$id){
+            $this->subids[$key]=0;
             $this->filters[$key]['name']= \DB::table('filters')->where('id',$id)->first()->name;
             $ub_ids= \DB::table('sub_filters')->where('filter_id',$id)->pluck('id')->unique()->toArray();
             $ub_id = \DB::table('product_sup_filters')->where('product_id',$this->product->id)->whereIn('sub_filter_id',$ub_ids)->where('amount','>','0')->pluck('sub_filter_id')->unique()->toArray();
@@ -70,5 +87,38 @@ class ShowProduct extends Component{
         }
         return view('livewire.show-product');
     }
+
+
+
+    public function addToCart($product_id,$subFilter)
+    {
+        $cart = session()->get('cart', []);
+        $product = Product::findOrFail($product_id)->only(['id','name','real_price','photo','description']);
+        if($subFilter)
+        $keys = \DB::table('product_sup_filters')->where('product_id',$product_id)->where('sub_filter_id',$subFilter)->pluck('key')->toArray();
+        else
+         $keys=[];
+        $key = null;
+        foreach($keys as $item){
+            $count=\DB::table('product_sup_filters')->where('key',$item)->whereIn('sub_filter_id',$subFilter)->count();
+            if( $count>=count($subFilter))
+                $key= $item;
+        }
+            if($key!=null)
+                $product['real_price']=\DB::table('product_sup_filters')->where('key',$item)->first()->price;
+            if(isset($cart[$product['id']])) {
+                $cart[$id]['quantity']++;
+            } else {
+            $cart[$product['id']] = [
+                "product" => $product,
+                "quantity" => 1,
+                "key" =>$key,
+            ];
+        }
+
+        session()->put('cart', $cart);
+        return session()->get('cart', []);
+    }
+
 
 }

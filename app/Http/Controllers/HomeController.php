@@ -130,7 +130,7 @@ class HomeController extends Controller{
                     }
                 }
                 return view('payment.faild_payment');
-            }
+    }
 
 
             public function contact(){

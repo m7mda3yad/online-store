@@ -11,7 +11,7 @@ class CreateOrdersTable extends Migration
 		Schema::create('orders', function(Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('customers')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('customers')->onDelete('cascade');
             $table->tinyInteger('delivery_type')->nullable()->default(0);
             $table->tinyInteger('paid_type')->nullable()->default(0);
             $table->timestamp('date')->nullable();

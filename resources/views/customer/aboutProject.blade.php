@@ -36,8 +36,8 @@
                     يذهب الاوردر للادمن ويقوم اضافته للدليفري ويستلمه الدليفري من خلال الداش بورد الخاصه به
                     <br><br><br>
                     <div class="links">
-                        <a href="{{ route('index') }}">Home Page</a>
-                        <a href="{{ route('admin') }}">Admin Panel</a>
+                        <a target="_blanh" href="{{ route('index') }}">Home Page</a>
+                        <a target="_blanh" href="{{ route('admin') }}">Admin Panel</a>
                     </div>
                 </div>
             </div>

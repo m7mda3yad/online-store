@@ -39,7 +39,7 @@
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">$ {{ $price??$product->real_price  }}</h3>
                 <p class="mb-4">{{ $product->description }}</p>
-                <form method="get" action="{{route('addToCart')}}">
+                <form wire:submit.prevent="submit(Object.fromEntries(new FormData($event.target)))">
                     <input type="hidden" name="product_id" value="{{$product->id}}">
                 @foreach ($filters as $key=>$item)
                 <div class="d-flex mb-3">
@@ -47,7 +47,7 @@
                     @foreach ($item['sub_filters'] as $sub)
                     <div class="custom-control custom-radio custom-control-inline">
                         @if(count($filters_id)>0 && !in_array($sub->id,$filters_id) && $sub->filter->id !=$selectedFilter)
-                        <input disabled wire:click="subFilter({{$sub->id}})" class="custom-control-input" id="{{ $sub->id }}" type="radio" name="{{$key+1}}">
+                        <input disabled wire:click="subFilter({{$sub->id}})" class="custom-control-input"  id="{{ $sub->id }}" type="radio" name="{{$key+1}}">
                         @else
                         <input {{ in_array($sub->id , $data )?'checked':''}}  required name="subFilter[{{$key}}]"   required wire:click="subFilter({{$sub->id}})"
                                 class="custom-control-input" value="{{$sub->id}}" id="{{$sub->id}}" type="radio">
@@ -93,5 +93,9 @@
                 document.getElementById("count_array").innerHTML=id;
             }
         </script>
-
     </div>
+
+
+
+
+
